@@ -33,8 +33,10 @@ model = genai.GenerativeModel("gemini-1.5-flash") # gemini-1.5-flash is a valid 
 render_disk_path = os.getenv('RENDER_DISK_PATH', '.') 
 
 # Define paths relative to the disk mount point
-UPLOAD_FOLDER = os.path.join(render_disk_path, 'uploads/temp_resumes')
-SAVED_DATA_DIR = os.path.join(render_disk_path, 'saved_data')
+# --- Directory Setup for Temporary Storage on Render ---
+# These folders will be created on the server's temporary filesystem.
+UPLOAD_FOLDER = 'uploads/temp_resumes'
+SAVED_DATA_DIR = 'saved_data'
 SAVED_RESUMES_DIR = os.path.join(SAVED_DATA_DIR, 'resumes')
 METADATA_DB_FILE = os.path.join(SAVED_DATA_DIR, 'resumes_metadata.json')
 
