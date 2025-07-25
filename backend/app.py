@@ -114,17 +114,80 @@ def fit_score_content(resume_text, jd_text):
     return response.text
 
 def convert_json_to_markdown_table_programmatic(json_string):
+    """
+    Parses the JSON string (expected from parse_resume_content) and programmatically
+    generates a readable Markdown table, using HTML line breaks for multi-line content.
+    """
+    if not json_string:
+        return "No resume data to display in table. Please parse a resume first."
+
     try:
         data = json.loads(json_string)
-        if "raw_text_fallback" in data:
-            return f"Could not generate table. Raw text: {data['raw_text_fallback']}"
-        table = "| Category | Details |\n|---|---|\n"
-        for key, value in data.items():
-            details = json.dumps(value, indent=2) if isinstance(value, (dict, list)) else str(value)
-            table += f"| **{key.replace('_', ' ').title()}** | {details.replace('\n', '<br>')} |\n"
-        return table
-    except Exception as e:
-        return f"Error generating table: {e}"
+        if not isinstance(data, dict):
+            return "Error: Parsed data is not in a recognized format for table generation."
+    except json.JSONDecodeError:
+        return "Error: Could not decode parsed resume data to generate a table."
+
+    table_lines = ["| Category | Details |", "|---|---|"]
+
+    # --- Personal Info ---
+    personal_info = []
+    if data.get('name'): personal_info.append(f"**Name:** {data.get('name')}")
+    if data.get('email'): personal_info.append(f"**Email:** {data.get('email')}")
+    if data.get('phone'): personal_info.append(f"**Phone:** {data.get('phone')}")
+    table_lines.append(f"| Personal Info | {'<br>'.join(personal_info) or 'N/A'} |")
+
+    # --- Education ---
+    edu_details = data.get("education", [])
+    edu_str_list = []
+    if isinstance(edu_details, list):
+        for item in edu_details:
+            if isinstance(item, dict):
+                parts = [item.get('degree'), item.get('institution'), item.get('years')]
+                edu_str_list.append('- ' + ', '.join(p for p in parts if p))
+    table_lines.append(f"| Education | {'<br>'.join(edu_str_list) or 'N/A'} |")
+
+    # --- Skills ---
+    skills_details = data.get("skills", {})
+    skills_str_list = []
+    if isinstance(skills_details, dict):
+        for category, skill_list in skills_details.items():
+            if isinstance(skill_list, list):
+                skills_str_list.append(f"**{category}:** {', '.join(skill_list)}")
+    table_lines.append(f"| Skills | {'<br>'.join(skills_str_list) or 'N/A'} |")
+
+    # --- Work Experience ---
+    exp_details = data.get("experience", [])
+    exp_str_list = []
+    if isinstance(exp_details, list):
+        for item in exp_details:
+            if isinstance(item, dict):
+                title = f"- **{item.get('title', 'N/A')}** at **{item.get('company', 'N/A')}** ({item.get('dates', 'N/A')})"
+                exp_str_list.append(title)
+                responsibilities = item.get('responsibilities', [])
+                if isinstance(responsibilities, list):
+                    for resp in responsibilities:
+                        exp_str_list.append(f"  - {resp}")
+    table_lines.append(f"| Work Experience | {'<br>'.join(exp_str_list) or 'N/A'} |")
+
+    # --- Projects ---
+    proj_details = data.get("projects", [])
+    proj_str_list = []
+    if isinstance(proj_details, list):
+        for item in proj_details:
+            if isinstance(item, dict):
+                name = f"- **{item.get('name', 'N/A')}**"
+                proj_str_list.append(name)
+                tech = item.get('technologies', [])
+                outcomes = item.get('outcomes', [])
+                if isinstance(tech, list) and tech:
+                    proj_str_list.append(f"  - **Technologies:** {', '.join(tech)}")
+                if isinstance(outcomes, list):
+                    for outcome in outcomes:
+                        proj_str_list.append(f"  - {outcome}")
+    table_lines.append(f"| Projects | {'<br>'.join(proj_str_list) or 'N/A'} |")
+
+    return "\n".join(table_lines)
 
 # --- JD Samples ---
 JD_OPTIONS = {
