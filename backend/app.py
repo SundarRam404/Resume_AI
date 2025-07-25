@@ -56,7 +56,7 @@ def save_metadata(metadata):
 def pdf_to_image(pdf_file_path):
     doc = fitz.open(pdf_file_path)
     page = doc[0]
-    pix = page.get_pixmap(dpi=300)
+    pix = page.get_pixmap(dpi=150)
     img_path = os.path.join(tempfile.gettempdir(), f"{uuid.uuid4()}_resume.png")
     pix.save(img_path)
     doc.close()
