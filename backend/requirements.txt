@@ -1,0 +1,7 @@
+Flask
+Flask-Cors
+gunicorn
+google-generativeai
+Pillow
+PyMuPDF
+werkzeug

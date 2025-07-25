@@ -1,0 +1,864 @@
+/* No @import url() for Google Fonts here. It's now in public/index.html */
+
+:root {
+  --iphone-dark-bg: #000000; /* Pure black fallback */
+  --iphone-text-light: #f5f5f7; /* Off-white for body text */
+  --iphone-text-dark: #1d1d1f; /* Dark text on light sections (if any) */
+  --iphone-accent-blue: #007aff; /* Apple's signature blue */
+  --iphone-button-bg: #ffffff; /* White background for buttons */
+  --iphone-button-text: #000000; /* Black text for buttons */
+  --iphone-border: rgba(255, 255, 255, 0.1); /* Subtle light border */
+  --iphone-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Soft, subtle shadow */
+}
+
+/* Base Styles - iPhone Aesthetic */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif; /* Using Inter for Apple-like typography */
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased; /* Smoother fonts */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Main scrolling background image */
+  background-image: url('./main-scroll-bg.jpg'); /* Ensure this path is correct for your second photo */
+  
+  background-size: cover; /* Cover the entire viewport */
+  background-attachment: scroll; /* This makes it scroll with the content */
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat;
+  
+  /* Fallback background color if image doesn't load or for areas not covered */
+  background-color: #000000; /* Keep black as a fallback/base for empty areas */
+
+  filter: none; /* No additional image filters applied by CSS to the background */
+
+  color: var(--iphone-text-light); /* Light text on dark */
+}
+
+/* Hero Section - The big impression */
+.hero-section {
+  position: relative; /* Needed for positioning */
+  width: 100%;
+  height: 80vh; /* Takes up 80% of viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--iphone-text-light);
+  overflow: hidden;
+  padding: 0 20px;
+  
+  /* Fixed hero background applied directly to .hero-section */
+  background-image: url('./hero-top-bg.jpg'); /* The first photo */
+  background-size: contain; /* Make the photo "smaller and fit" */
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* Keep this image fixed relative to the viewport */
+  
+  background-color: black; /* This creates the black "boxes" around the contained image */
+}
+
+/* This div is hidden, no longer active for background image */
+.hero-background {
+    display: none;
+}
+
+/* Hide the hero content (H1 and P text) as title is in background image */
+.hero-content {
+  display: none; /* This will hide the h1 and p elements inside it */
+}
+
+
+/* Main Content Area */
+.main-content {
+  background-color: rgba(0, 0, 0, 0.4); /* Slightly less opaque black for content blocks */
+  padding: 60px 20px;
+  max-width: 1200px; /* Wider content area */
+  margin: 0 auto;
+  border-radius: 12px; /* Add some border-radius for the main content block */
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5); /* More prominent shadow for the main block */
+  margin-top: -80px; /* Pull it up over the hero section a bit */
+  position: relative; /* For z-index if needed */
+  z-index: 5;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px); /* Keep the blur effect */
+}
+
+
+.section-title {
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: var(--iphone-text-light);
+  letter-spacing: -0.01em;
+  opacity: 0.9;
+}
+
+.input-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.08); /* Slightly more transparent background for input cards */
+  border-radius: 12px;
+  padding: 25px;
+  border: 1px solid var(--iphone-border);
+  box-shadow: var(--iphone-shadow);
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+}
+
+/* Specific styling for the Fit Score input group */
+.input-group.score-input-group {
+    grid-column: 1 / -1; /* Ensure it spans full width */
+    flex-direction: column; /* Stack label, button, and score output */
+    align-items: flex-start; /* Align contents to the start */
+    padding-bottom: 15px; /* Add some space if needed */
+}
+
+.input-group.score-input-group label {
+    margin-bottom: 10px; /* Smaller margin below label */
+}
+
+/* Make the Job Description input group span the full width */
+.input-group.job-description-group {
+    grid-column: 1 / -1; /* This makes it span all columns available in the grid */
+}
+
+
+.input-group label {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--iphone-text-light);
+  opacity: 0.8;
+}
+
+.input-group input[type="file"],
+.input-group select,
+.input-group textarea {
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1); /* More transparent input fields */
+  color: var(--iphone-text-light);
+  border-radius: 8px;
+  font-size: 1em;
+  width: 100%;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  appearance: none; /* Remove default browser styles for selects */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.input-group input[type="file"]::file-selector-button {
+    background-color: var(--iphone-accent-blue);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.input-group input[type="file"]::file-selector-button:hover {
+    background-color: #005bb7;
+}
+
+
+.input-group input[type="file"]:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  outline: none;
+  border-color: var(--iphone-accent-blue);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.3); /* Subtle blue glow on focus */
+}
+
+.input-group textarea {
+  resize: vertical;
+  min-height: 70px; /* Changed from 100px to make it even more rectangular */
+}
+
+/* Dropdown arrow customization */
+.input-group select {
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23f5f5f7" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 20px;
+  padding-right: 30px; /* Make space for the arrow */
+}
+
+
+/* General Buttons - iPhone style */
+button {
+  background-color: var(--iphone-button-bg);
+  color: var(--iphone-button-text);
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px; /* Pill shape */
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  
+  margin-top: 20px; /* Keep this to separate buttons */
+  margin-right: 15px; /* Keep horizontal spacing for multiple buttons */
+
+  letter-spacing: 0.5px;
+  text-transform: none; /* No uppercase */
+  box-shadow: var(--iphone-shadow);
+}
+
+button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* NEW: Confirm Document Button Specific Style */
+.confirm-document-button {
+    background-color: var(--iphone-accent-blue); /* Distinct blue color */
+    color: white;
+    margin-top: 25px; /* More space from elements above */
+    padding: 15px 30px;
+    border-radius: 30px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(0, 122, 255, 0.4); /* Blue glow shadow */
+}
+
+.confirm-document-button:hover {
+    background-color: #005bb7; /* Darker blue on hover */
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 122, 255, 0.6);
+}
+
+.confirm-document-button:disabled {
+    background-color: rgba(0, 122, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* Score Output Box - New Styling */
+.score-output-box {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between medal and score */
+    margin-top: 20px; /* Space from the button */
+    padding: 12px 20px;
+    background-color: rgba(0, 122, 255, 0.1); /* Subtle blue background */
+    border: 1px solid var(--iphone-accent-blue);
+    border-radius: 8px;
+    font-size: 1.5em; /* Larger font for the score */
+    font-weight: 700;
+    color: var(--iphone-accent-blue); /* Blue color for score */
+    box-shadow: 0 0 10px rgba(0, 122, 255, 0.3); /* Subtle glow */
+    width: fit-content; /* Shrink to content width */
+    max-width: 100%; /* Ensure it doesn't overflow */
+    text-align: left; /* Align text within box */
+    animation: fadeIn 0.8s ease-out; /* Fade in animation */
+}
+
+.score-output-box .medal-icon {
+    font-size: 1.8em; /* Larger medal icon */
+    line-height: 1; /* Align vertically */
+    margin-right: 5px; /* Space between icon and text */
+}
+
+/* Style for the actual score value inside the box (ReactMarkdown renders a <p> or <h1>) */
+.score-output-box .score-value p,
+.score-output-box .score-value h1,
+.score-output-box .score-value h2,
+.score-output-box .score-value h3 {
+    margin: 0; /* Remove default margins from markdown output */
+    padding: 0;
+    color: inherit; /* Inherit color from parent (.score-output-box) */
+    font-size: inherit; /* Inherit font size from parent */
+    font-weight: inherit; /* Inherit font weight from parent */
+}
+
+/* Toggle Full Review Button */
+.toggle-review-button {
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle transparent background */
+    color: var(--iphone-text-light); /* Light text */
+    padding: 8px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px; /* More rounded */
+    font-size: 0.9em;
+    font-weight: 500;
+    margin-top: 15px; /* Space below the score box */
+    align-self: flex-start; /* Align with score box if flex column */
+    box-shadow: none; /* No strong shadow */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.toggle-review-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+/* Full Review Dropdown Area */
+.full-review-dropdown {
+    margin-top: 20px;
+    padding: 25px;
+    background-color: rgba(0, 0, 0, 0.3); /* Darker transparent background for output */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: var(--iphone-text-light);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-out; /* Fade in animation for the dropdown */
+    width: 100%; /* Take full width of the parent input-group */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+
+/* Tabs - Clean & Minimal */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the tabs */
+  gap: 15px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Thin separator */
+  padding-bottom: 15px;
+}
+
+.tabs button {
+  background-color: transparent; /* Transparent background for tabs */
+  color: rgba(255, 255, 255, 0.6); /* Lighter grey for inactive */
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0; /* Square tabs */
+  font-weight: 500;
+  position: relative;
+  box-shadow: none; /* No shadow on tab buttons */
+}
+
+.tabs button.active {
+  font-weight: 600;
+  background-color: transparent;
+  box-shadow: none;
+
+  /* Gold/Bronze Gradient Text for active tab */
+  background: linear-gradient(180deg, #FFD700 0%, #FFA500 50%, #B8860B 100%); /* Gold gradient */
+  -webkit-background-clip: text; /* Clip background to text shape */
+  background-clip: text;
+  -webkit-text-fill-color: transparent; /* Make text transparent so gradient shows */
+  color: transparent; /* Fallback for browsers that don't support text-fill-color */
+
+  /* Glow Effect */
+  text-shadow: 
+    0 0 5px rgba(255, 215, 0, 0.3), /* Soft inner glow */
+    0 0 10px rgba(255, 215, 0, 0.15); /* Wider glow */
+}
+
+.tabs button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -15px; /* Position below the text, aligned with border */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 20px); /* Slightly narrower than button */
+  height: 3px;
+  background-color: #FFD700; /* Gold color for the active tab underline */
+  border-radius: 2px;
+}
+
+.tabs button:hover:not(.active) {
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  transform: none;
+  box-shadow: none;
+}
+
+
+/* Tab Content Area */
+.tab-content {
+  background-color: rgba(255, 255, 255, 0.03); /* Very subtle transparent background */
+  padding: 40px;
+  border-radius: 12px;
+  border: 1px solid var(--iphone-border);
+  box-shadow: var(--iphone-shadow);
+  backdrop-filter: blur(10px); /* More blur for content area */
+}
+
+.tab-pane {
+  margin-bottom: 30px;
+}
+
+.tab-pane h3 {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--iphone-text-light);
+  margin-top: 0;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.output-area {
+  margin-top: 30px;
+  padding: 25px;
+  background-color: rgba(0, 0, 0, 0.3); /* Darker transparent background for output */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  min-height: 200px;
+  max-height: 700px;
+  overflow-y: auto;
+  color: var(--iphone-text-light);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.output-area h4 {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--iphone-accent-blue);
+  margin-top: 0;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.code-block {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 18px;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  color: #a0e0ff; /* Lighter blue for code */
+  font-family: 'Roboto Mono', monospace; /* Keep monospace for code */
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.markdown-output table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2em;
+  color: var(--iphone-text-light);
+  font-size: 0.95em;
+}
+
+.markdown-output th,
+.markdown-output td {
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 12px;
+  text-align: left;
+}
+
+.markdown-output th {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: var(--iphone-text-light);
+  font-weight: 600;
+}
+
+/* Loader Overlay Section */
+.loading-overlay-section {
+    position: relative; /* Or static if you want it to flow naturally */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0; /* Vertical padding to give it space */
+    margin-bottom: 40px; /* Space before the tabs */
+}
+
+
+/* Status Messages */
+.loading-message {
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  gap: 15px; /* Space between GIF and text */
+
+  background-color: rgba(0, 122, 255, 0.2); /* Transparent blue for loading */
+  color: var(--iphone-accent-blue);
+  border: 1px solid var(--iphone-accent-blue);
+  padding: 20px; /* Increased padding */
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(0, 122, 255, 0.3);
+  width: fit-content; /* Shrink to content */
+  min-width: 250px; /* Give it a minimum width */
+}
+
+.loader-image {
+  width: 80px; /* Smaller size for the GIF */
+  height: 80px;
+  object-fit: contain;
+  filter: brightness(1.2); /* Adjust brightness to make it pop on dark background */
+}
+
+.error-message {
+  background-color: rgba(255, 59, 48, 0.2); /* Transparent red for error */
+  color: #ff453a; /* iOS red */
+  border: 1px solid #ff453a;
+  padding: 15px;
+  margin-bottom: 20px; /* Keep margin-bottom here for errors that are not inside loading overlay */
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 15px rgba(255, 59, 48, 0.3);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .hero-section {
+    height: 60vh;
+  }
+  .main-content {
+    padding: 40px 15px;
+    margin-top: -60px; /* Adjust margin for smaller screens */
+  }
+  .section-title {
+    font-size: clamp(1.8rem, 3.5vw, 3rem);
+    margin-bottom: 30px;
+  }
+  .input-grid {
+    grid-template-columns: 1fr; /* Single column on small screens */
+    gap: 20px;
+  }
+  .tabs {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tabs button {
+    border-radius: 8px; /* Rounded corners for stacked tabs */
+  }
+  .tabs button.active::after {
+    bottom: -5px; /* Adjust underline position for stacked tabs */
+    width: 80%; /* Shorter underline */
+  }
+  .tab-content {
+    padding: 25px;
+  }
+  .output-area {
+    padding: 18px;
+  }
+  .score-output-box {
+      font-size: 1.2em; /* Smaller font on small screens */
+      padding: 10px 15px;
+  }
+  .score-output-box .medal-icon {
+      font-size: 1.5em;
+  }
+  .toggle-review-button {
+      padding: 6px 12px;
+      font-size: 0.8em;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    height: 50vh;
+  }
+  button {
+    padding: 12px 20px;
+    font-size: 1em;
+  }
+}
+
+/* --- GLOBAL Rainbow Highlight (Selection) Style --- */
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::selection {
+  background: linear-gradient(to right, 
+    #FF0000,   /* Red */
+    #FFA500,   /* Orange */
+    #FFFF00,   /* Yellow */
+    #00FF00,   /* Green */
+    #0000FF,   /* Blue */
+    #4B0082,   /* Indigo */
+    #EE82EE    /* Violet */
+  );
+  color: white; /* Make the selected text white for better contrast on rainbow */
+}
+
+/* For Mozilla Firefox */
+::-moz-selection {
+  background: linear-gradient(to right, 
+    #FF0000, 
+    #FFA500, 
+    #FFFF00, 
+    #00FF00, 
+    #0000FF, 
+    #4B0082, 
+    #EE82EE 
+  );
+  color: white;
+}
+
+/* --- NEW STYLES FOR ALL RESUMES SECTION --- */
+
+.all-resumes-section {
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--iphone-shadow);
+}
+
+.jd-filter-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.jd-filter-container label {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--iphone-text-light);
+    opacity: 0.8;
+    margin-bottom: 0; /* Override default label margin */
+}
+
+.jd-filter-container select {
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--iphone-text-light);
+    border-radius: 8px;
+    font-size: 1em;
+    flex-grow: 1; /* Allow it to take available space */
+    max-width: 300px; /* Limit max width */
+}
+
+.no-resumes-message {
+    text-align: center;
+    font-size: 1.1em;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 50px 20px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+.saved-resumes-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.saved-resume-item {
+    background-color: rgba(0, 0, 0, 0.3); /* Darker background for individual items */
+    border-radius: 10px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.resume-info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--iphone-text-light);
+}
+
+.person-name {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #FFD700; /* Gold color for name */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.2);
+}
+
+.jd-role-tag {
+    background-color: rgba(0, 122, 255, 0.2);
+    color: var(--iphone-accent-blue);
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.85em;
+    font-weight: 600;
+}
+
+.fit-score-display {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.fit-score-display .ReactMarkdown p {
+    margin: 0; /* Remove default margin from markdown p tag */
+    display: inline; /* Keep score on same line */
+}
+
+.resume-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.resume-actions button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    border-radius: 20px;
+    box-shadow: none; /* Remove default button shadow */
+    margin-top: 0; /* Override general button margin-top */
+    margin-right: 0; /* Override general button margin-right */
+}
+
+.resume-actions .download-button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--iphone-text-light);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.resume-actions .download-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.resume-actions .toggle-qa-button {
+    background-color: var(--iphone-accent-blue);
+    color: white;
+}
+
+.resume-actions .toggle-qa-button:hover {
+    background-color: #005bb7;
+}
+
+.interview-qa-dropdown {
+    margin-top: 15px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.4); /* Darker background for QA content */
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+    animation: fadeIn 0.4s ease-out;
+}
+
+/* Responsive adjustments for All Resumes */
+@media (max-width: 600px) {
+    .all-resumes-section {
+        padding: 20px;
+    }
+    .jd-filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .jd-filter-container select {
+        max-width: 100%;
+    }
+    .resume-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .resume-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+    .resume-actions button {
+        width: 100%;
+    }
+}
+
+/* NEW STYLES FOR IMPROVEMENTS */
+
+.action-buttons-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 40px; /* Space from input grid */
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08); /* Separator */
+}
+
+.clear-everything-button {
+    background-color: #ff453a; /* iOS red for danger */
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(255, 59, 48, 0.4);
+}
+
+.clear-everything-button:hover {
+    background-color: #cc372e;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 59, 48, 0.6);
+}
+
+.sort-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sort-controls span {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.sort-controls button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--iphone-text-light);
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    font-size: 0.85em;
+    font-weight: 500;
+    box-shadow: none;
+    margin: 0; /* Override general button margin */
+}
+
+.sort-controls button:hover:not(.active) {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.sort-controls button.active {
+    background-color: var(--iphone-accent-blue);
+    color: white;
+    font-weight: 600;
+    border-color: var(--iphone-accent-blue);
+    box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
