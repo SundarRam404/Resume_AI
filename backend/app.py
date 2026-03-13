@@ -22,7 +22,7 @@ api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("GOOGLE_API_KEY environment variable not set!")
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-1.5-flash-002") # CHANGE 3: Corrected Model Name
+model = genai.GenerativeModel("gemini-1.5-flash") # CHANGE 3: Corrected Model Name
 
 # --- Directory Setup (Unchanged) ---
 UPLOAD_FOLDER = 'uploads/temp_resumes'
