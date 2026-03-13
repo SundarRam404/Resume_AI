@@ -479,11 +479,13 @@ def clear_all_data():
     except Exception as e:
         return jsonify({"error": f"Failed to clear all data: {e}"}), 500
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     if os.path.exists(UPLOAD_FOLDER):
         for filename in os.listdir(UPLOAD_FOLDER):
             try:
                 os.remove(os.path.join(UPLOAD_FOLDER, filename))
             except Exception as e:
                 print(f"Error cleaning up old temp file: {e}")
-    app.run(debug=True, port=5000)
+
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host="0.0.0.0", port=port)
