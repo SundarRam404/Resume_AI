@@ -103,7 +103,7 @@ def parse_resume_content(pdf_file_path):
         }
         """
         response = client.models.generate_content(
-           model="gemini-1.5-flash",
+           model="gemini-2.0-flash",
            contents=[prompt, image]
        )
         raw_llm_output = response.text
@@ -142,7 +142,7 @@ def resume_check_content(resume_text):
     Return a comprehensive summary of red flags or areas to improve. Be specific, constructive, and provide actionable advice.
     """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=[prompt, resume_text]
     )
     return response.text
@@ -168,7 +168,7 @@ def jd_match_content(resume_text, jd_text):
     Ensure the output is a valid Markdown table.
     """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=[prompt, resume_text, jd_text]
     )
     return response.text
@@ -205,7 +205,7 @@ def generate_questions_content(resume_text, jd_text):
     | Imagine a user reports a critical bug in your deployed application. Walk me through your steps to diagnose and resolve it. | First, I'd gather details from the user (reproduction steps, error messages). Then, I'd check logs and monitoring tools for anomalies. I'd try to reproduce the bug in a development environment. Once reproduced, I'd use debugging tools to pinpoint the root cause. After fixing, I'd write unit/integration tests, deploy to a staging environment for validation, and finally push to production, communicating updates to the user throughout. |
     """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=[prompt, resume_text, jd_text]
     )
     return response.text
@@ -242,7 +242,7 @@ def fit_score_content(resume_text, jd_text):
         * Add a summary tailored to the JD.
     """
     response = client.models.generate_content(
-        model="gemini-1.5-flash",
+        model="gemini-2.0-flash",
         contents=[prompt, resume_text, jd_text]
     )
     return response.text
@@ -332,7 +332,7 @@ def generate_table_from_raw_text(raw_text):
     """
     try:
         response = client.models.generate_content(
-            model="gemini-1.5-flash",
+            model="gemini-2.0-flash",
             contents=[prompt, raw_text]
         )
         return response.text
