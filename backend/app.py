@@ -6,7 +6,7 @@ from werkzeug.utils import secure_filename
 import fitz  # PyMuPDF
 from PIL import Image
 import tempfile
-import google.generativeai as genai
+from google import genai
 import uuid  # For unique filenames
 import shutil  # For copying/moving files
 import re  # For extracting name from parsed text
@@ -21,8 +21,7 @@ CORS(app, resources={r"/*": {"origins": frontend_url}})
 api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     raise ValueError("GOOGLE_API_KEY environment variable not set!")
-genai.configure(api_key=api_key)
-model = genai.GenerativeModel("models/gemini-1.5-flash") # CHANGE 3: Corrected Model Name
+client = genai.Client(api_key=api_key)
 
 # --- Directory Setup (Unchanged) ---
 UPLOAD_FOLDER = 'uploads/temp_resumes'
@@ -100,7 +99,10 @@ def parse_resume_content(pdf_file_path):
           "projects": [{"name": "Portfolio Website", "technologies": ["React", "Node.js"], "outcomes": ["Showcased projects", "Improved personal branding"]}]
         }
         """
-        response = model.generate_content([prompt, image])
+        response = client.models.generate_content(
+           model="gemini-1.5-flash",
+           contents=[prompt, image]
+       )
         raw_llm_output = response.text
         parsed_json = {}
         extracted_name = "Unknown Person"
@@ -136,7 +138,10 @@ def resume_check_content(resume_text):
 
     Return a comprehensive summary of red flags or areas to improve. Be specific, constructive, and provide actionable advice.
     """
-    response = model.generate_content([prompt, resume_text])
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=[prompt, resume_text]
+    )
     return response.text
 
 def jd_match_content(resume_text, jd_text):
@@ -159,7 +164,10 @@ def jd_match_content(resume_text, jd_text):
     - "Match Score (0-1)": Provide a numerical score from 0 to 1 (e.g., 0.8, 0.5, 0.2) indicating the strength of the match for that specific skill. A score of 1 means a perfect match, 0 means no match.
     Ensure the output is a valid Markdown table.
     """
-    response = model.generate_content([prompt, resume_text, jd_text])
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=[prompt, resume_text, jd_text]
+    )
     return response.text
 
 def generate_questions_content(resume_text, jd_text):
@@ -193,7 +201,10 @@ def generate_questions_content(resume_text, jd_text):
     |---|---|
     | Imagine a user reports a critical bug in your deployed application. Walk me through your steps to diagnose and resolve it. | First, I'd gather details from the user (reproduction steps, error messages). Then, I'd check logs and monitoring tools for anomalies. I'd try to reproduce the bug in a development environment. Once reproduced, I'd use debugging tools to pinpoint the root cause. After fixing, I'd write unit/integration tests, deploy to a staging environment for validation, and finally push to production, communicating updates to the user throughout. |
     """
-    response = model.generate_content([prompt, resume_text, jd_text])
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=[prompt, resume_text, jd_text]
+    )
     return response.text
 
 def fit_score_content(resume_text, jd_text):
@@ -227,7 +238,10 @@ def fit_score_content(resume_text, jd_text):
         * Quantify achievements in experience.
         * Add a summary tailored to the JD.
     """
-    response = model.generate_content([prompt, resume_text, jd_text])
+    response = client.models.generate_content(
+        model="gemini-1.5-flash",
+        contents=[prompt, resume_text, jd_text]
+    )
     return response.text
 
 def convert_json_to_markdown_table_programmatic(json_string):
@@ -314,7 +328,10 @@ def generate_table_from_raw_text(raw_text):
     Please generate only the Markdown table.
     """
     try:
-        response = model.generate_content([prompt, raw_text])
+        response = client.models.generate_content(
+            model="gemini-1.5-flash",
+            contents=[prompt, raw_text]
+        )
         return response.text
     except Exception as e:
         return f"Error using LLM to generate table from raw text: {e}"
